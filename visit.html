@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>환생시키는 법</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0a0a0a; color: #cfcfcf; font-family: "Noto Sans KR","Malgun Gothic",Arial,sans-serif; line-height: 1.9; }
+  .top { border-bottom: 1px solid #1d1d1d; padding: 18px 24px; font-size: 14px; color: #777; letter-spacing: 1px; }
+  .top b { color: #bbb; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 56px 22px 90px; }
+  .cat { font-size: 13px; color: #8a2b2b; margin-bottom: 10px; }
+  h1 { font-size: 32px; margin: 0 0 14px; color: #f0f0f0; font-weight: 700; line-height: 1.35; }
+  .meta { font-size: 13px; color: #666; padding-bottom: 22px; border-bottom: 1px solid #1d1d1d; margin-bottom: 34px; }
+  .hero { margin: 0 0 36px; border-radius: 6px; overflow: hidden; border: 1px solid #1d1d1d; }
+  .hero img { display: block; width: 100%; height: 340px; object-fit: cover; object-position: center bottom; }
+  p { margin: 0 0 24px; font-size: 16px; }
+  .em { color: #fff; font-weight: 700; }
+  hr { border: 0; border-top: 1px solid #1d1d1d; margin: 40px 0; }
+  .order { background: #111; border: 1px solid #222; border-radius: 8px; padding: 22px; }
+  .order label { display: block; font-size: 14px; color: #999; margin-bottom: 10px; }
+  .order input { width: 100%; background: #070707; border: 1px solid #2a2a2a; color: #eee; padding: 12px 14px; border-radius: 6px; font-size: 15px; font-family: inherit; outline: none; }
+  .order input:focus { border-color: #7a2323; }
+  .order button { margin-top: 14px; width: 100%; padding: 13px; background: #6e1c1c; color: #fff; border: 0; border-radius: 6px; font-size: 15px; font-family: inherit; cursor: pointer; }
+  .order button:hover { background: #8a2525; }
+  #done { display: none; margin-top: 26px; color: #c9c9c9; }
+  #done .last { color: #b33; font-weight: 700; margin-top: 14px; }
+  .back { display: inline-block; margin-top: 44px; font-size: 13px; color: #555; text-decoration: none; }
+  .back:hover { color: #999; }
+
+  #cd { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 9998; pointer-events: none;
+        font: 700 72px/1 "Courier New", monospace; color: #fff; background: rgba(0,0,0,.55); border: 1px solid #444;
+        padding: 18px 34px; border-radius: 10px; display: none; text-align: center; }
+  #cd small { display: block; font-size: 13px; font-weight: 400; color: #aaa; margin-top: 8px; letter-spacing: 1px; }
+  #noise { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 9999; display: none; pointer-events: none; }
+  #black { position: fixed; inset: 0; background: #000; z-index: 10000; display: none; }
+  @keyframes jitter { 0%{transform:translate(0,0)} 20%{transform:translate(-6px,2px) skewX(2deg)} 40%{transform:translate(5px,-3px)} 60%{transform:translate(-3px,4px) skewX(-3deg)} 80%{transform:translate(7px,0)} 100%{transform:translate(0,0)} }
+  body.glitch .wrap, body.glitch .top { animation: jitter .12s steps(2) infinite; filter: contrast(1.6) brightness(1.3) hue-rotate(20deg); }
+  @keyframes crt { 0%{transform:scale(1,1);filter:brightness(1)} 55%{transform:scale(1,.004);filter:brightness(6)} 85%{transform:scale(.01,.004);filter:brightness(10)} 100%{transform:scale(0,0);filter:brightness(0)} }
+  html.off body > .top, html.off body > .wrap { animation: crt .55s cubic-bezier(.7,0,.9,.4) forwards; transform-origin: center center; }
+</style></head><body>
+<div class="top"><b>어둠속 연구실</b> · 비공개 기록</div>
+<div class="wrap">
+  <div class="cat">환생</div>
+  <h1>환생시키는 법</h1>
+  <div class="meta">작성자 비공개 · 조회 3</div>
+
+  <div class="hero"><img src="images/post.png" alt=""></div>
+
+  <p>우선, 이 글을 발견해 주셔서 감사합니다.<br>누군가를 환생시키고자 하는 당신의 간절한 마음은 닿았습니다.<br>준비할 것은 <span class="em">‘환생 벌레’</span>입니다.</p>
+
+  <p>벌레는 어둡고 깊은 곳을 좋아합니다. 환생시킬 대상의 일부를 먹여 준비하십시오.<br>벌레를 수태시킬 대상의 몸에 삽입합니다. 숙주의 몸 안에서 벌레는 환생시킬 대상의 기억을 먹고 당신의 그리운 사람으로 자라날 것입니다.<br>벌레의 성장 속도는 빠른 편이지만, 숙주의 거부반응이 심하다면 실패할 확률이 높아집니다.<br>벌레의 배송과 함께 기억을 흐리게 하는 주문을 동봉합니다.<br>숙주와 환생시킬 대상의 기억을 일치시키는 것을 추천합니다.<br><span class="em">중요한 것은 일체감입니다.</span></p>
+
+  <p>벌레는 성장 속도가 빠른 편이지만, 보다 시간을 들여 키운다면 완벽한 모습으로 환생할 것입니다.<br>빠른 성장을 원한다면 직접 영양을 주입하세요.</p>
+
+  <hr>
+
+  <p>아래로 연락받을 전화번호를 입력하시면 벌레를 배송해 드립니다.</p>
+
+  <div class="order">
+    <label for="tel">전화번호</label>
+    <input id="tel" type="tel" inputmode="numeric" maxlength="15" placeholder="010 - xxxx - xxxx" autocomplete="off">
+  </div>
+
+  <div id="done">
+    <p>번호가 접수되었습니다.<br>벌레는 곧 도착합니다. 그 전에, 그리운 사람의 기억을 떠올려 두세요.</p>
+    <p class="last">잊지 마세요. 중요한 것은 일체감입니다.</p>
+  </div>
+
+  <a class="back" href="index.html">← 돌아가기</a>
+</div>
+<div id="cd"><span id="cdn">10</span><small>TEST · 맨 아래 도달 후 카운트</small></div>
+<canvas id="noise"></canvas>
+<div id="black"></div>
+<script>
+  // ---- 전화번호 입력 (010 - xxxx - xxxx 자동 서식)
+  const tel = document.getElementById('tel');
+  tel.addEventListener('input', () => {
+    const d = tel.value.replace(/\D/g, '').slice(0, 11);
+    let out = d.slice(0, 3);
+    if (d.length > 3) out += ' - ' + d.slice(3, 7);
+    if (d.length > 7) out += ' - ' + d.slice(7);
+    tel.value = out;
+    if (d.length === 11) document.getElementById('done').style.display = 'block';
+  });
+
+  // ---- 소리: 지지직 + 전원 꺼지는 소리
+  let ac;
+  function audio() {
+    if (!ac) { try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
+    if (ac && ac.state === 'suspended') ac.resume();
+    return ac;
+  }
+  ['pointerdown','keydown','wheel','touchstart'].forEach(ev => addEventListener(ev, audio, { passive: true }));
+
+  function playStatic(dur) {
+    const a = audio(); if (!a) return;
+    const buf = a.createBuffer(1, a.sampleRate * dur, a.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (Math.random() < .08 ? 1 : .5);
+    const n = a.createBufferSource(); n.buffer = buf;
+    const g = a.createGain(); g.gain.setValueAtTime(.5, a.currentTime);
+    g.gain.linearRampToValueAtTime(.9, a.currentTime + dur * .8);
+    n.connect(g).connect(a.destination); n.start();
+  }
+  function playPowerDown() {
+    const a = audio(); if (!a) return;
+    const o = a.createOscillator(), g = a.createGain();
+    o.type = 'sawtooth'; o.frequency.setValueAtTime(900, a.currentTime);
+    o.frequency.exponentialRampToValueAtTime(30, a.currentTime + .6);
+    g.gain.setValueAtTime(.35, a.currentTime); g.gain.exponentialRampToValueAtTime(.001, a.currentTime + .65);
+    o.connect(g).connect(a.destination); o.start(); o.stop(a.currentTime + .7);
+  }
+
+  // ---- 화면 효과
+  const noise = document.getElementById('noise'), ctx = noise.getContext('2d');
+  function drawNoise() {
+    const w = noise.width = innerWidth / 3 | 0, h = noise.height = innerHeight / 3 | 0;
+    const img = ctx.createImageData(w, h);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const v = Math.random() * 255; img.data[i] = img.data[i+1] = img.data[i+2] = v; img.data[i+3] = 255;
+    }
+    ctx.putImageData(img, 0, 0);
+    // 가로 줄 깜빡임
+    ctx.fillStyle = 'rgba(0,0,0,.6)';
+    for (let k = 0; k < 4; k++) ctx.fillRect(0, Math.random() * h, w, 1 + Math.random() * 3);
+  }
+  let fired = false;
+  function blackout() {
+    fired = true;
+    document.getElementById('cd').style.display = 'none';
+    document.body.classList.add('glitch');
+    noise.style.display = 'block';
+    playStatic(1.8);
+    const t = setInterval(drawNoise, 40);
+    setTimeout(() => {
+      clearInterval(t);
+      noise.style.display = 'none';
+      document.body.classList.remove('glitch');
+      playPowerDown();
+      document.documentElement.classList.add('off');
+      setTimeout(() => { document.getElementById('black').style.display = 'block'; }, 560);
+    }, 1800);
+  }
+
+  // ---- 맨 아래 도달 후 10초 카운트
+  const cd = document.getElementById('cd'), cdn = document.getElementById('cdn');
+  let timer = null, left = 10;
+  const atBottom = () => innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
+  function check() {
+    if (fired) return;
+    if (atBottom()) {
+      if (timer) return;
+      left = 10; cdn.textContent = left; cd.style.display = 'block';
+      timer = setInterval(() => {
+        left--; cdn.textContent = left;
+        if (left <= 0) { clearInterval(timer); timer = null; blackout(); }
+      }, 1000);
+    } else if (timer) {          // 위로 올라가면 취소
+      clearInterval(timer); timer = null; cd.style.display = 'none';
+    }
+  }
+  addEventListener('scroll', check, { passive: true });
+  addEventListener('resize', check);
+  check();
+</script>
+</body></html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>새 탭</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: #41391f;
+    color: #fff;
+    font-family: "Noto Sans KR", "Malgun Gothic", "Google Sans", Arial, sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* top right */
+  header {
+    width: 100%; display: flex; justify-content: flex-end; align-items: center;
+    gap: 18px; padding: 24px 26px; font-size: 15px;
+  }
+  header .grid { width: 24px; height: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding: 2px; cursor: pointer; }
+  header .grid i { background: #fff; border-radius: 50%; }
+  .avatar {
+    width: 30px; height: 30px; border-radius: 50%; background: #f6c915;
+    cursor: pointer;
+  }
+
+  /* logo */
+  .logo {
+    margin-top: 11vh; font-size: 112px; font-weight: 500; letter-spacing: -4px;
+    color: #ffd93b; font-family: "Product Sans", "Google Sans", "Segoe UI", Arial, sans-serif;
+    line-height: 1; user-select: none;
+  }
+
+  /* search */
+  .searchwrap { margin-top: 56px; width: min(680px, 90vw); height: 50px; position: relative; z-index: 10; }
+  .search {
+    position: absolute; top: 0; left: 0; right: 0; background: #fff;
+    border-radius: 25px; box-shadow: 0 1px 6px rgba(0,0,0,.25); overflow: hidden;
+  }
+  .search .row { height: 50px; display: flex; align-items: center; padding: 0 8px 0 18px; }
+  .history { display: none; padding: 4px 0 14px; }
+  .search:focus-within { border-radius: 26px; }
+  .search:focus-within .history { display: block; }
+  .history li {
+    list-style: none; display: flex; align-items: center; gap: 18px; height: 44px;
+    padding: 0 22px 0 18px; font-size: 16px; color: #202124; cursor: pointer;
+  }
+  .history li:hover { background: #f1f3f4; }
+  .history li svg { width: 20px; height: 20px; margin: 0; fill: #5f6368; flex: none; }
+  .history ul { margin: 0; padding: 0; }
+  .search .plus { font-size: 28px; color: #202124; width: 28px; line-height: 1; cursor: pointer; }
+  .search input {
+    flex: 1; border: 0; outline: 0; font-size: 16px; padding: 0 16px; background: transparent; color: #202124;
+    font-family: inherit;
+  }
+  .search input::placeholder { color: #9aa0a6; }
+  .search input:not(:focus) { color: transparent; }
+  .search input:not(:focus)::placeholder { color: transparent; }
+  .search svg { width: 22px; height: 22px; margin: 0 10px; cursor: pointer; fill: #202124; }
+  .ai {
+    display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px;
+    background: #f1f3f4; color: #202124; border-radius: 18px; font-size: 14px; font-weight: 500; cursor: pointer;
+  }
+  .ai svg { margin: 0; width: 18px; height: 18px; }
+
+  /* suggestion cards */
+  .cards { display: flex; gap: 14px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
+  .card {
+    width: 218px; height: 51px; background: #2d2813; border-radius: 16px;
+    display: flex; align-items: center; gap: 12px; padding: 0 14px; cursor: pointer;
+  }
+  .card .ic { font-size: 18px; width: 22px; text-align: center; }
+  .card b { display: block; font-weight: 500; font-size: 14px; }
+  .card small { display: block; font-size: 12.5px; color: #e2d9b0; }
+
+  /* shortcuts */
+  .shortcuts { margin-top: 46px; display: flex; gap: 22px; }
+  .sc { width: 100px; text-align: center; font-size: 13px; cursor: pointer; }
+  .sc .tile {
+    width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 50%; background: #2d2813;
+    display: grid; place-items: center; font-size: 20px;
+  }
+  .sc span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* banner */
+  .banner {
+    margin-top: 46px; width: min(780px, 92vw); background: #2d2813; border-radius: 14px;
+    display: flex; align-items: center; gap: 16px; padding: 14px 20px; font-size: 14px; line-height: 1.5;
+  }
+  .banner .ext { width: 36px; height: 36px; border-radius: 8px; background: #9a7b0a; display: grid; place-items: center; flex: none; }
+  .banner p { margin: 0; flex: 1; }
+  .banner .dots { font-size: 20px; cursor: pointer; }
+
+  .custom {
+    position: fixed; right: 16px; bottom: 0; background: #9a7b0a; color: #fff;
+    padding: 12px 22px; border-radius: 20px 20px 0 0; font-size: 14px; cursor: pointer;
+  }
+
+  /* profile panel */
+  .panel-bg { display: none; position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.35); }
+  .panel-bg.open { display: block; }
+  .panel {
+    position: absolute; top: 0; right: 0; bottom: 0; width: min(420px, 100vw);
+    background: #202124; padding: 20px 18px; overflow-y: auto; border-radius: 28px 0 0 28px;
+  }
+  .panel .close { position: absolute; top: 14px; right: 20px; font-size: 28px; color: #ccc; cursor: pointer; line-height: 1; }
+  .pcard { background: #0f0f10; border-radius: 22px; margin-top: 44px; padding: 20px; display: flex; align-items: center; gap: 20px; }
+  .pcard .big { width: 72px; height: 72px; border-radius: 50%; background: #f6c915; position: relative; flex: none; }
+  .pcard .big::after { content: "✎"; position: absolute; right: -4px; bottom: -4px; width: 26px; height: 26px; border-radius: 50%;
+    background: #2a2b2e; display: grid; place-items: center; font-size: 14px; color: #fff; }
+  .pcard .name { font-size: 24px; }
+  .ptitle { margin: 18px 6px 8px; font-size: 13px; color: #9aa0a6; }
+  .plist { background: #0f0f10; border-radius: 18px; padding: 6px 0; margin: 0; list-style: none; }
+  .plist li { display: flex; align-items: center; gap: 16px; padding: 13px 18px; font-size: 15px; cursor: pointer; }
+  .plist li:hover { background: #1b1b1d; }
+  .plist li svg { width: 20px; height: 20px; fill: #9aa0a6; flex: none; }
+
+  /* lock screen */
+  #lock { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: #050a10 url('images/lock.png') center / cover no-repeat; color: #fff; transition: opacity .6s, visibility .6s; }
+  #lock.hide { opacity: 0; visibility: hidden; }
+  #lock .clock { position: absolute; top: 9vh; text-align: center; }
+  #lock .clock .t { font-size: 96px; font-weight: 300; letter-spacing: -2px; line-height: 1; }
+  #lock .clock .d { font-size: 22px; margin-top: 10px; color: #e8e8f0; }
+  #lock .clock, #lock .nm, #lock .err { text-shadow: 0 2px 12px rgba(0,0,0,.7); }
+  #lock .user { display: flex; flex-direction: column; align-items: center; margin-top: 14vh; }
+  #lock .av { width: 150px; height: 150px; border-radius: 50%; background: #f6c915; box-shadow: 0 6px 30px rgba(0,0,0,.45); }
+  #lock .nm { margin-top: 18px; font-size: 26px; }
+  #lock .pw { margin-top: 22px; display: flex; width: 280px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.35);
+    border-radius: 6px; overflow: hidden; backdrop-filter: blur(6px); }
+  #lock .pw input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: #fff; font-size: 16px; padding: 11px 12px; font-family: inherit; }
+  #lock .pw input::placeholder { color: #d8cf9f; }
+  #lock .pw button { width: 44px; border: 0; background: rgba(255,255,255,.18); color: #fff; font-size: 20px; cursor: pointer; }
+  #lock .pw button:hover { background: rgba(255,255,255,.32); }
+  #lock .err { height: 22px; margin-top: 12px; font-size: 14px; color: #ffb4a8; }
+  #lock .pw.shake { animation: shake .35s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-9px)} 40%{transform:translateX(9px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+</style>
+</head>
+<body>
+
+<div id="lock">
+  <div class="clock"><div class="t" id="lt"></div><div class="d" id="ld"></div></div>
+  <div class="user">
+    <div class="av"></div>
+    <div class="nm">주선우</div>
+    <form class="pw" id="pwf" autocomplete="off">
+      <input type="password" id="pwi" placeholder="암호" autocomplete="off">
+      <button type="submit" aria-label="로그인">→</button>
+    </form>
+    <div class="err" id="perr"></div>
+  </div>
+</div>
+
+<header>
+  <a href="#">Gmail</a>
+  <a href="#">이미지</a>
+  <div class="grid">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <div class="avatar" id="avatarBtn"></div>
+</header>
+
+<div class="logo">Google</div>
+
+<div class="searchwrap"><div class="search">
+<div class="row">
+  <div class="plus">+</div>
+  <input type="text" id="q" placeholder="Google에 물어보기">
+  <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11z"/></svg>
+  <svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3V2H5a3 3 0 0 0-3 3v3zm16 0h2V5a3 3 0 0 0-3-3h-3v2h3a1 1 0 0 1 1 1zM4 16H2v3a3 3 0 0 0 3 3h3v-2H5a1 1 0 0 1-1-1zm16 0v3a1 1 0 0 1-1 1h-3v2h3a3 3 0 0 0 3-3v-3zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+  <div class="ai">
+    <svg viewBox="0 0 24 24"><path d="M10 3a7 7 0 1 0 4.2 12.6l4.6 4.6 1.4-1.4-4.6-4.6A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
+    AI 모드
+  </div>
+</div>
+<div class="history"><ul id="hist"></ul></div>
+</div></div>
+
+<div class="cards">
+  <div class="card"><div class="ic">🔍</div><div><b>AI 모드로 더 많은 작업 수행</b></div></div>
+  <div class="card"><div class="ic">🍌</div><div><b>이미지 만들기</b><small>재구성, 삽화 추가, 수정</small></div></div>
+</div>
+
+<div class="banner">
+  <div class="ext">🧩</div>
+  <p>정리된 상태를 유지하고, 작업을 간소화하고, 브라우징 환경을 향상시키려면 확장 프로그램을 추가하세요.</p>
+  <span>›</span>
+  <span class="dots">⋮</span>
+</div>
+
+<div style="height:90px"></div>
+<div class="custom">✏️ Chrome 맞춤설정</div>
+
+<div class="panel-bg" id="panelBg">
+  <div class="panel">
+    <div class="close" id="panelClose">×</div>
+    <div class="pcard"><div class="big"></div><div class="name">주선우</div></div>
+    <div class="ptitle">이전 방문 기록</div>
+    <ul class="plist" id="plist"></ul>
+  </div>
+</div>
+<script>
+  const ICON = '<svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.9 3.9.1.1L9 12H6a7 7 0 1 1 2.05 4.95l-1.42 1.42A9 9 0 1 0 13 3zm-1 5v5l4.3 2.5.7-1.2-3.5-2V8z"/></svg>';
+  // 최신순 (위가 가장 최근)
+  const HISTORY = ["환생벌레","죽은 사람을 되돌리는 방법","환생","죽은 사람을 환생시키는 방법","어떻게 환생","빙의"];
+  const q = document.getElementById('q');
+  const VISITS = ["환생시키는 법"];
+  const fill = (id, target, list) => {
+    const ul = document.getElementById(id);
+    ul.innerHTML = list.map(t => '<li>' + ICON + t + '</li>').join('');
+    ul.querySelectorAll('li').forEach(li => li.addEventListener('mousedown', e => {
+      e.preventDefault();
+      location.href = target + '?q=' + encodeURIComponent(li.textContent);
+    }));
+  };
+  fill('hist', '404.html', HISTORY);      // 검색창 기록 → 404
+  fill('plist', 'visit.html', VISITS);   // 방문 기록 → 실제 사이트
+  const bg = document.getElementById('panelBg');
+  document.getElementById('avatarBtn').onclick = () => bg.classList.add('open');
+  document.getElementById('panelClose').onclick = () => bg.classList.remove('open');
+  bg.addEventListener('click', e => { if (e.target === bg) bg.classList.remove('open'); });
+</script>
+<script>
+  // ---- 잠금 화면 ----
+  const PASSWORD = "0000";   // ← 여기에 실제 비밀번호를 넣으세요
+  const lock = document.getElementById('lock');
+  if (sessionStorage.getItem('unlocked') === '1') {
+    lock.classList.add('hide');
+  } else {
+    document.body.style.overflow = 'hidden';
+    document.getElementById('pwi').focus();
+  }
+  function tick() {
+    const n = new Date();
+    document.getElementById('lt').textContent = n.getHours() + ':' + String(n.getMinutes()).padStart(2, '0');
+    document.getElementById('ld').textContent = n.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' });
+  }
+  tick(); setInterval(tick, 1000);
+  document.getElementById('pwf').addEventListener('submit', e => {
+    e.preventDefault();
+    const inp = document.getElementById('pwi');
+    if (inp.value === PASSWORD) {
+      sessionStorage.setItem('unlocked', '1');
+      lock.classList.add('hide');
+      document.body.style.overflow = '';
+    } else {
+      document.getElementById('perr').textContent = '암호가 정확하지 않습니다. 다시 시도하세요.';
+      const f = document.getElementById('pwf');
+      f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
+      inp.value = ''; inp.focus();
+    }
+  });
+</script>
+</body>
+</html>
