@@ -43,8 +43,6 @@
   <h1>환생시키는 법</h1>
   <div class="meta">작성자 비공개 · 조회 3</div>
 
-  <div class="hero"><img src="images/post.png" alt=""></div>
-
   <p>우선, 이 글을 발견해 주셔서 감사합니다.<br>누군가를 환생시키고자 하는 당신의 간절한 마음은 닿았습니다.<br>준비할 것은 <span class="em">‘환생 벌레’</span>입니다.</p>
 
   <p>벌레는 어둡고 깊은 곳을 좋아합니다. 환생시킬 대상의 일부를 먹여 준비하십시오.<br>벌레를 수태시킬 대상의 몸에 삽입합니다. 숙주의 몸 안에서 벌레는 환생시킬 대상의 기억을 먹고 당신의 그리운 사람으로 자라날 것입니다.<br>벌레의 성장 속도는 빠른 편이지만, 숙주의 거부반응이 심하다면 실패할 확률이 높아집니다.<br>벌레의 배송과 함께 기억을 흐리게 하는 주문을 동봉합니다.<br>숙주와 환생시킬 대상의 기억을 일치시키는 것을 추천합니다.<br><span class="em">중요한 것은 일체감입니다.</span></p>
@@ -67,7 +65,7 @@
 
   <a class="back" href="index.html">← 돌아가기</a>
 </div>
-<div id="cd"><span id="cdn">10</span><small>TEST · 맨 아래 도달 후 카운트</small></div>
+<div id="cd"><span id="cdn">5</span><small>TEST · 맨 아래 도달 후 5초</small></div>
 <canvas id="noise"></canvas>
 <div id="black"></div>
 <script>
@@ -105,7 +103,7 @@
     const o = a.createOscillator(), g = a.createGain();
     o.type = 'sawtooth'; o.frequency.setValueAtTime(900, a.currentTime);
     o.frequency.exponentialRampToValueAtTime(30, a.currentTime + .6);
-    g.gain.setValueAtTime(.35, a.currentTime); g.gain.exponentialRampToValueAtTime(.001, a.currentTime + .65);
+    g.gain.setValueAtTime(.1, a.currentTime); g.gain.exponentialRampToValueAtTime(.001, a.currentTime + .65);
     o.connect(g).connect(a.destination); o.start(); o.stop(a.currentTime + .7);
   }
 
@@ -126,29 +124,20 @@
   function blackout() {
     fired = true;
     document.getElementById('cd').style.display = 'none';
-    document.body.classList.add('glitch');
-    noise.style.display = 'block';
-    playStatic(1.8);
-    const t = setInterval(drawNoise, 40);
-    setTimeout(() => {
-      clearInterval(t);
-      noise.style.display = 'none';
-      document.body.classList.remove('glitch');
-      playPowerDown();
-      document.documentElement.classList.add('off');
-      setTimeout(() => { document.getElementById('black').style.display = 'block'; }, 560);
-    }, 1800);
+    playPowerDown();                                   // 노이즈 없이 바로 꺼짐
+    document.documentElement.classList.add('off');
+    setTimeout(() => { document.getElementById('black').style.display = 'block'; }, 560);
   }
 
   // ---- 맨 아래 도달 후 10초 카운트
   const cd = document.getElementById('cd'), cdn = document.getElementById('cdn');
-  let timer = null, left = 10;
+  let timer = null, left = 5;
   const atBottom = () => innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
   function check() {
     if (fired) return;
     if (atBottom()) {
       if (timer) return;
-      left = 10; cdn.textContent = left; cd.style.display = 'block';
+      left = 5; cdn.textContent = left; 
       timer = setInterval(() => {
         left--; cdn.textContent = left;
         if (left <= 0) { clearInterval(timer); timer = null; blackout(); }
